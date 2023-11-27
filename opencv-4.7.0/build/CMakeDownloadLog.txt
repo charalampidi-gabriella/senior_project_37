@@ -1,0 +1,744 @@
+#use_cache "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/.cache"
+#do_unpack "ippicv_2020_lnx_intel64_20191018_general.tgz" "7421de0095c7a39162ae13a6098782f9" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/a56b6ac6f030c312b2dce17430eef13aed9af274/ippicv/ippicv_2020_lnx_intel64_20191018_general.tgz" "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/build/3rdparty/ippicv"
+#cmake_download "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/.cache/ippicv/7421de0095c7a39162ae13a6098782f9-ippicv_2020_lnx_intel64_20191018_general.tgz" "https://raw.githubusercontent.com/opencv/opencv_3rdparty/a56b6ac6f030c312b2dce17430eef13aed9af274/ippicv/ippicv_2020_lnx_intel64_20191018_general.tgz"
+#try 1
+#check_md5 "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/.cache/ippicv/7421de0095c7a39162ae13a6098782f9-ippicv_2020_lnx_intel64_20191018_general.tgz"
+#mkdir "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/build/3rdparty/ippicv"
+#unpack "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/build/3rdparty/ippicv" "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/.cache/ippicv/7421de0095c7a39162ae13a6098782f9-ippicv_2020_lnx_intel64_20191018_general.tgz"
+#do_unpack "v0.1.2a.zip" "fa4b3e25167319cb0fa9432ef8281945" "https://github.com/opencv/ade/archive/v0.1.2a.zip" "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/build/3rdparty/ade"
+#cmake_download "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/.cache/ade/fa4b3e25167319cb0fa9432ef8281945-v0.1.2a.zip" "https://github.com/opencv/ade/archive/v0.1.2a.zip"
+#try 1
+#   Trying 140.82.113.3:443...
+# Connected to github.com (140.82.113.3) port 443 (#0)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# TLSv1.0 (OUT), TLS header, Certificate Status (22):
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# TLSv1.2 (IN), TLS header, Certificate Status (22):
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# TLSv1.2 (IN), TLS header, Finished (20):
+# [5 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [2459 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [79 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# TLSv1.2 (OUT), TLS header, Finished (20):
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=github.com
+#  start date: Feb 14 00:00:00 2023 GMT
+#  expire date: Mar 14 23:59:59 2024 GMT
+#  subjectAltName: host "github.com" matched cert's "github.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert TLS Hybrid ECC SHA384 2020 CA1
+#  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+# Using HTTP2, server supports multiplexing
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5574ae87a4e0)
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/ade/archive/v0.1.2a.zip HTTP/2
+# Host: github.com
+# user-agent: curl/7.81.0
+# accept: */*
+# 
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# old SSL session ID is stale, removing
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 302 
+# server: GitHub.com
+# date: Sun, 26 Nov 2023 21:23:56 GMT
+# content-type: text/html; charset=utf-8
+# vary: X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, Accept-Encoding, Accept, X-Requested-With
+# location: https://codeload.github.com/opencv/ade/zip/refs/tags/v0.1.2a
+# cache-control: max-age=0, private
+# strict-transport-security: max-age=31536000; includeSubdomains; preload
+# x-frame-options: deny
+# x-content-type-options: nosniff
+# x-xss-protection: 0
+# referrer-policy: no-referrer-when-downgrade
+# content-security-policy: default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.githubcopilot.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com cdn.optimizely.com logx.optimizely.com/v1/events objects-origin.githubusercontent.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net/ productionresultssa1.blob.core.windows.net/ productionresultssa2.blob.core.windows.net/ productionresultssa3.blob.core.windows.net/ productionresultssa4.blob.core.windows.net/ productionresultssa5.blob.core.windows.net/ productionresultssa6.blob.core.windows.net/ productionresultssa7.blob.core.windows.net/ productionresultssa8.blob.core.windows.net/ productionresultssa9.blob.core.windows.net/ github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com support.github.com; img-src 'self' data: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ gist.github.com/assets-cdn/worker/
+# content-length: 0
+# x-github-request-id: 86BC:0A93:25A6A7:32ED57:6563B76C
+# 
+# [0 bytes data]
+# Connection #0 to host github.com left intact
+# Issue another request to this URL: 'https://codeload.github.com/opencv/ade/zip/refs/tags/v0.1.2a'
+#   Trying 140.82.114.9:443...
+# Connected to codeload.github.com (140.82.114.9) port 443 (#1)
+# ALPN, offering h2
+# ALPN, offering http/1.1
+# TLSv1.0 (OUT), TLS header, Certificate Status (22):
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Client hello (1):
+# [512 bytes data]
+# TLSv1.2 (IN), TLS header, Certificate Status (22):
+# [5 bytes data]
+# TLSv1.3 (IN), TLS handshake, Server hello (2):
+# [122 bytes data]
+# TLSv1.2 (IN), TLS header, Finished (20):
+# [5 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+# [19 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Certificate (11):
+# [2458 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, CERT verify (15):
+# [79 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Finished (20):
+# [36 bytes data]
+# TLSv1.2 (OUT), TLS header, Finished (20):
+# [5 bytes data]
+# TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (OUT), TLS handshake, Finished (20):
+# [36 bytes data]
+# SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+# ALPN, server accepted to use h2
+# Server certificate:
+#  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=*.github.com
+#  start date: Feb 16 00:00:00 2023 GMT
+#  expire date: Mar 15 23:59:59 2024 GMT
+#  subjectAltName: host "codeload.github.com" matched cert's "*.github.com"
+#  issuer: C=US; O=DigiCert Inc; CN=DigiCert TLS Hybrid ECC SHA384 2020 CA1
+#  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+# Using HTTP2, server supports multiplexing
+# Connection state changed (HTTP/2 confirmed)
+# Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# Using Stream ID: 1 (easy handle 0x5574ae87a4e0)
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# GET /opencv/ade/zip/refs/tags/v0.1.2a HTTP/2
+# Host: codeload.github.com
+# user-agent: curl/7.81.0
+# accept: */*
+# 
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# [57 bytes data]
+# old SSL session ID is stale, removing
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (OUT), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# HTTP/2 200 
+# access-control-allow-origin: https://render.githubusercontent.com
+# content-disposition: attachment; filename=ade-0.1.2a.zip
+# content-length: 167786
+# content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+# content-type: application/zip
+# cross-origin-resource-policy: cross-origin
+# etag: "d21a41598f8ea46e358787d91467632c1a903d606a5ba9feb1fca92e2183a1b6"
+# strict-transport-security: max-age=31536000
+# vary: Authorization,Accept-Encoding,Origin
+# x-content-type-options: nosniff
+# x-frame-options: deny
+# x-xss-protection: 1; mode=block
+# date: Sun, 26 Nov 2023 21:23:56 GMT
+# x-github-request-id: 80AA:79BA:7C07A8:CA8E1A:6563B76C
+# 
+# [833 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [481 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [691 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [285 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1370 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1323 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [1361 bytes data]
+# TLSv1.2 (IN), TLS header, Supplemental data (23):
+# [5 bytes data]
+# [1 bytes data]
+# [201 bytes data]
+# Connection #1 to host codeload.github.com left intact
+# 
+
+#check_md5 "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/.cache/ade/fa4b3e25167319cb0fa9432ef8281945-v0.1.2a.zip"
+#mkdir "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/build/3rdparty/ade"
+#unpack "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/build/3rdparty/ade" "/home/jimmy/Documents/UNR/project/senior_project_37/opencv-4.7.0/.cache/ade/fa4b3e25167319cb0fa9432ef8281945-v0.1.2a.zip"
