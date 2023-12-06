@@ -18,4 +18,7 @@ export TURTLEBOT3_MODEL=waffle_pi<br \>
 roslaunch turtlebot3_gazebo turtlebot3_house.launch
 <h3>New Terminal 2:</h3>
 export TURTLEBOT3_MODEL=waffle_pi<br \>
+roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping<br \>
+<h3>New Terminal 3:</h3>
+export TURTLEBOT3_MODEL=waffle_pi<br \>
 roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch<br \>
