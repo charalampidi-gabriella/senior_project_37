@@ -7,6 +7,10 @@ Instructors: Sara Davis, Devrin Lee, Vinh Le<br \>
 Team Advisor: Christos Papachristos, Assistant Professor
 
 <h2>Emily's "catkin_ws":</h2>
+<h3>Prerequisites:</h3>
+- Must be running Ubuntu 20.04<br \>
+- Download ROS1 Noetic software (http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment)<br \>
+- Download Gazebo software (https://classic.gazebosim.org/tutorials?cat=guided_b&tut=guided_b1)<br \>
 <h3>New Terminal 1:</h3>
 source ~/.bashrc<br \>
 cd ~/catkin_ws/src<br \>
