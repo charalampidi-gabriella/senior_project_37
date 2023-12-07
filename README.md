@@ -6,8 +6,11 @@ Team members: Gabriella Charalampidi, Emily McCue, James Kolby<br \>
 Instructors: Sara Davis, Devrin Lee, Vinh Le<br \>
 Team Advisor: Christos Papachristos, Assistant Professor
 
-<h2>Demo Video</h2>
+<h2>Demo Videos</h2>
+WASD Navigation Demo:<br \>
 https://youtu.be/aKd7RaaQccc<br \>
+Autonomous Navigation Demo:<br \>
+https://youtu.be/T0JaqantIKE<br \>
 
 <h2>Emily's "catkin_ws":</h2>
 <h3>Prerequisites:</h3>
