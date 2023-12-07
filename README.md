@@ -22,7 +22,6 @@ https://youtu.be/T0JaqantIKE<br \>
 
 
 1. **Terminal 1: Set up the Environment**
-   - Open a terminal and execute the following commands:
 
      ```bash
      # Source the ROS environment variables
