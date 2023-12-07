@@ -6,6 +6,9 @@ Team members: Gabriella Charalampidi, Emily McCue, James Kolby<br \>
 Instructors: Sara Davis, Devrin Lee, Vinh Le<br \>
 Team Advisor: Christos Papachristos, Assistant Professor
 
+<h2>Demo Video</h2>
+https://youtu.be/aKd7RaaQccc<br \>
+
 <h2>Emily's "catkin_ws":</h2>
 <h3>Prerequisites:</h3>
 - Must be running Ubuntu 20.04<br \>
