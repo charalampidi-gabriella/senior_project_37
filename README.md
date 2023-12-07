@@ -13,7 +13,7 @@
 - **WASD Navigation Demo:** [Watch Video](https://youtu.be/aKd7RaaQccc)
 - **Autonomous Navigation Demo:** [Watch Video](https://youtu.be/T0JaqantIKE)
 
-## Emily's "catkin_ws"
+## catkin_ws
 
 ### Prerequisites:
 
