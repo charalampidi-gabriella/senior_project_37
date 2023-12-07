@@ -1,22 +1,25 @@
-<h1>RoomSense Robot</h1>
-<h2>Department of Computer Science and Engineering <br \>
-University of Nevada, Reno</h2><br  \>
-Team #37<br \>
-Team members: Gabriella Charalampidi, Emily McCue, James Kolby<br \>
-Instructors: Sara Davis, Devrin Lee, Vinh Le<br \>
-Team Advisor: Christos Papachristos, Assistant Professor
+# RoomSense Robot
 
-<h2>Demo Videos</h2>
-WASD Navigation Demo:<br \>
-https://youtu.be/aKd7RaaQccc<br \>
-Autonomous Navigation Demo:<br \>
-https://youtu.be/T0JaqantIKE<br \>
+**Department of Computer Science and Engineering**
+**University of Nevada, Reno**
 
-<h2>Emily's "catkin_ws":</h2>
-<h3>Prerequisites:</h3>
-- Must be running Ubuntu 20.04<br \>
-- Download ROS1 Noetic software (http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment)<br \>
-- Download Gazebo software (https://classic.gazebosim.org/tutorials?cat=guided_b&tut=guided_b1)<br \>
+**Team #37**
+- Team members: Gabriella Charalampidi, Emily McCue, James Kolby
+- Instructors: Sara Davis, Devrin Lee, Vinh Le
+- Team Advisor: Christos Papachristos, Assistant Professor
+
+## Demo Videos
+
+- **WASD Navigation Demo:** [Watch Video](https://youtu.be/aKd7RaaQccc)
+- **Autonomous Navigation Demo:** [Watch Video](https://youtu.be/T0JaqantIKE)
+
+## Emily's "catkin_ws"
+
+### Prerequisites:
+
+- Must be running Ubuntu 20.04
+- Download ROS1 Noetic software ([Installation Guide](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment))
+- Download Gazebo software ([Installation Guide](https://classic.gazebosim.org/tutorials?cat=guided_b&tut=guided_b1))
 
 ### TurtleBot3 Prototype
 
