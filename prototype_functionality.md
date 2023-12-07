@@ -34,7 +34,7 @@ These instructions will guide you through running the TurtleBot3 prototype with 
 
    This will start the mapping and localization components using the Gmapping algorithm.
 
-3. **Terminal 3: Start Teleoperation (Optional)**
+3. **Terminal 3: Start Teleoperation **
    - If you want to manually control the robot using the keyboard, open another terminal and execute the following commands:
 
      ```bash
@@ -47,8 +47,3 @@ These instructions will guide you through running the TurtleBot3 prototype with 
 
    This allows you to control the robot's movement with the keyboard.
 
-Now your TurtleBot3 prototype is set up for autonomous navigation and mapping. You can interact with it using the provided commands and interfaces.
-
-**Note:** Please ensure that your system is properly configured, and the required ROS packages and dependencies are installed before running these commands.
-
-Feel free to customize and share these instructions on GitHub as needed for your project.
