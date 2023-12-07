@@ -34,8 +34,8 @@ These instructions will guide you through running the TurtleBot3 prototype with 
 
    This will start the mapping and localization components using the Gmapping algorithm.
 
-3. **Terminal 3: Start Teleoperation **
-   - If you want to manually control the robot using the keyboard, open another terminal and execute the following commands:
+3. **Terminal 3: Start Teleoperation**
+   - To manually control the robot using the keyboard, open another terminal and execute:
 
      ```bash
      # Set the TurtleBot3 model to 'waffle_pi'
@@ -45,5 +45,5 @@ These instructions will guide you through running the TurtleBot3 prototype with 
      roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
      ```
 
-   This allows you to control the robot's movement with the keyboard.
+   This allows to control the robot's movement with the keyboard.
 
