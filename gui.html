@@ -15,9 +15,20 @@
     });
 
 	// logs all available ros topics
-	ros.getTopics(function(topics) {
-	  console.log('Current topics in ROS: ' + topics);
-	});
+	function getTopics() {
+	    var topicsClient = new ROSLIB.Service({
+	    ros : ros,
+	    name : '/rosapi/topics',
+	    serviceType : 'rosapi/Topics'
+	    });
+
+	    var request = new ROSLIB.ServiceRequest();
+
+	    topicsClient.callService(request, function(result) {
+	    console.log("Getting topics...");
+	    console.log(result.topics);
+	    });
+	};
 
     ros.on('error', function (error) {
       document.getElementById("status").innerHTML = "Error";
@@ -51,8 +62,10 @@
     messageType : 'std_msgs/String'
   });
 
-  items_listener.subscribe(function(m) {
-    document.getElementById("items_msg").innerHTML = m.data;
+  items_listener.subscribe(function(message) {
+    console.log('Received message on ' + listener.name + ': ' + message.data);
+    document.getElementById("items_msg").innerHTML = message.data;
+    listener.unsubscribe();
   });
 
 // test to see if the UI can reach yolo
@@ -62,8 +75,11 @@
     messageType : 'std_msgs/String'
   });
 
-  items_listener.subscribe(function(m) {
-    document.getElementById("items_msg").innerHTML = m.data;
+
+  items_listener.subscribe(function(message) {
+    console.log('Received message on ' + listener.name + ': ' + message.data);
+    document.getElementById("items_msg").innerHTML = message.data;
+    listener.unsubscribe();
   });
 
 // map listener
@@ -88,7 +104,7 @@
 
 	listener.subscribe(function(message) {
 	  	console.log('Received message on ' + listener.name + ': ' + message.data);
-		document.getElementById("txt_msg").innerHTML = m.data;
+		document.getElementById("txt_msg").innerHTML = message.data;
 		listener.unsubscribe();
 	});
 
@@ -127,6 +143,8 @@
   </br>
   <p>Random ros messages: <span id="msg"></span></p>
   <div id="zone_joystick" style="position: relative;"></div>
+
+  <button onclick="getTopics()">Get Topics<span id="search_button"></span></button>
   <p>Text Messages: <span id="txt_msg"></span></p>
 </body>
 
