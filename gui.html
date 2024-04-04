@@ -69,14 +69,15 @@
   });
 
 // test to see if the UI can reach yolo
-  var items_listener = new ROSLIB.Topic({
+  var num_objs_listener = new ROSLIB.Topic({
     ros : ros,
-    name : '/yolo_model/weight_file/name',
-    messageType : 'std_msgs/String'
+    //name : '/yolo_model/weight_file/name',
+    name : '/darknet_ros/found_object',
+    messageType : 'darknet_ros_msgs/ObjectCount'
   });
 
 
-  items_listener.subscribe(function(message) {
+  num_objs_listener.subscribe(function(message) {
     console.log('Received message on ' + listener.name + ': ' + message.data);
     document.getElementById("items_msg").innerHTML = message.data;
     listener.unsubscribe();
