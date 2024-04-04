@@ -7,7 +7,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
 
-  <script type="text/javascript" type="text/javascript">z
+  <script type="text/javascript" type="text/javascript">
 
 // ros status listener
     var ros = new ROSLIB.Ros({
@@ -19,12 +19,13 @@
 	  console.log('Current topics in ROS: ' + topics);
 	});
 
-    ros.on('connection', function () {
-      document.getElementById("status").innerHTML = "Connected";
-    });
-
     ros.on('error', function (error) {
       document.getElementById("status").innerHTML = "Error";
+    });
+
+    ros.on('connection', function () {
+      document.getElementById("status").innerHTML = "Connected";
+      console.log('successfully connected to websocket server');
     });
 
     ros.on('close', function () {
@@ -79,15 +80,17 @@
 
 
 // troubleshooting listener
-  var txt_listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/txt_msg',
-    messageType : 'std_msgs/String'
-  });
+	var listener = new ROSLIB.Topic({
+		ros : ros,
+		name : '/listener',
+		messageType : 'std_msgs/String'
+	});
 
-  txt_listener.subscribe(function(m) {
-    document.getElementById("txt_msg").innerHTML = m.data;
-  });
+	listener.subscribe(function(message) {
+	  	console.log('Received message on ' + listener.name + ': ' + message.data);
+		document.getElementById("txt_msg").innerHTML = m.data;
+		listener.unsubscribe();
+	});
 
 
 
@@ -124,6 +127,7 @@
   </br>
   <p>Random ros messages: <span id="msg"></span></p>
   <div id="zone_joystick" style="position: relative;"></div>
+  <p>Text Messages: <span id="txt_msg"></span></p>
 </body>
 
 </html>
