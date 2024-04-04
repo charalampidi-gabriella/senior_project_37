@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+
+  <script type="text/javascript" type="text/javascript">
+// list all available topics
+function getTopics() {
+	var topicClient = new ROSLIB.Service({
+	ros : ros,
+	name : '/rosapi/topics'
+	serviceType : 'rosapi/Topics
+	});
+}
+
+var request = new ROSLIB.ServiceRequest();
+topicsClient.callService(request, function(result) {
+	console.log("Getting topics...");
+	console.log(result.topics);
+};
+
+// ros status listener
+    var ros = new ROSLIB.Ros({
+      url: 'ws://localhost:9090'
+    });
+
+    ros.on('connection', function () {
+      document.getElementById("status").innerHTML = "Connected";
+    });
+
+    ros.on('error', function (error) {
+      document.getElementById("status").innerHTML = "Error";
+    });
+
+    ros.on('close', function () {
+      document.getElementById("status").innerHTML = "Closed";
+    });
+
+// search status listener
+  var search_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/search_msg',
+    messageType : 'std_msgs/String'
+  });
+
+  search_listener.subscribe(function(m) {
+    document.getElementById("search_status").innerHTML = m.data;
+  });
+
+// identified items listener
+/*
+  var items_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/yolo_model/detection_classes/names',
+    messageType : 'std_msgs/String'
+  });
+
+  items_listener.subscribe(function(m) {
+    document.getElementById("items_msg").innerHTML = m.data;
+  });*/
+
+// test to see if the UI can reach yolo
+  var items_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/yolo_model/weight_file/name',
+    messageType : 'std_msgs/String'
+  });
+
+  items_listener.subscribe(function(m) {
+    document.getElementById("items_msg").innerHTML = m.data;
+  });
+
+// map listener
+/*
+  var map_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/map_msg',
+    messageType : 'std_msgs/String'
+  });
+
+  items_listener.subscribe(function(m) {
+    document.getElementById("map_msg").innerHTML = m.data;
+  });*/
+
+
+// troubleshooting listener
+  var txt_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/txt_msg',
+    messageType : 'std_msgs/String'
+  });
+
+  txt_listener.subscribe(function(m) {
+    document.getElementById("txt_msg").innerHTML = m.data;
+  });
+
+
+
+// Publishers
+// search button publisher
+  var search_cmd_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/cmd_srch',
+    messageType : 'std_msgs/String'  // todo update if necessary
+  });
+
+  start_search = function() {
+	var search = new ROSLIB.Message({
+		// todo add proper message to start search
+	});
+	search_cmd_listener.publish(search);
+  }
+
+  search_cmd_listener.subscribe(function(m) {
+    document.getElementById("search_button").innerHTML = m.data;
+    move(1, 0);
+  });
+
+
+  </script>
+</head>
+
+<body>
+  <h1>RoomSense Robot</h1>
+  <button onclick="startSearch()">Search Room<span id="search_button"></span></button>
+  <p>Ros connection status: <span id="status"></span></p>
+  <p>Search status: <span id="search_status"></span></p>
+  <p>Last items identified: <span id="items_msg"></span></p>
+  </br>
+  <p>Random ros messages: <span id="msg"></span></p>
+  <div id="zone_joystick" style="position: relative;"></div>
+</body>
+
+</html>
