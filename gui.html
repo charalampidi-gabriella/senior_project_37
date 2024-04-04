@@ -7,26 +7,17 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
 
-  <script type="text/javascript" type="text/javascript">
-// list all available topics
-function getTopics() {
-	var topicClient = new ROSLIB.Service({
-	ros : ros,
-	name : '/rosapi/topics'
-	serviceType : 'rosapi/Topics
-	});
-}
-
-var request = new ROSLIB.ServiceRequest();
-topicsClient.callService(request, function(result) {
-	console.log("Getting topics...");
-	console.log(result.topics);
-};
+  <script type="text/javascript" type="text/javascript">z
 
 // ros status listener
     var ros = new ROSLIB.Ros({
       url: 'ws://localhost:9090'
     });
+
+	// logs all available ros topics
+	ros.getTopics(function(topics) {
+	  console.log('Current topics in ROS: ' + topics);
+	});
 
     ros.on('connection', function () {
       document.getElementById("status").innerHTML = "Connected";
@@ -52,7 +43,7 @@ topicsClient.callService(request, function(result) {
   });
 
 // identified items listener
-/*
+
   var items_listener = new ROSLIB.Topic({
     ros : ros,
     name : '/yolo_model/detection_classes/names',
@@ -61,7 +52,7 @@ topicsClient.callService(request, function(result) {
 
   items_listener.subscribe(function(m) {
     document.getElementById("items_msg").innerHTML = m.data;
-  });*/
+  });
 
 // test to see if the UI can reach yolo
   var items_listener = new ROSLIB.Topic({
