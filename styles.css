@@ -1,0 +1,77 @@
+/* base */
+body, h1, p, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #1e1e2e; /* bg */
+    color: #e4e4e4; /* txt */
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #4db6ac; 
+    margin-bottom: 20px;
+  }
+  
+  
+  button {
+    background-color: #388e3c; 
+    color: #ffffff;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 5px; 
+  }
+  
+  button:hover {
+    background-color: #2e7d32; 
+  }
+  
+  p {
+    color: #cfd8dc; 
+    margin-bottom: 10px;
+  }
+  
+  span {
+    color: #a5d6a7; 
+  }
+  
+  #zone_joystick {
+    width: 100%;
+    max-width: 600px;
+    height: 200px;
+    margin: 20px auto;
+    background-color: #2c2c3d; 
+    position: relative;
+    border: 3px solid #4db6ac; 
+    border-radius: 15px; 
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #252535; 
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .flex-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  

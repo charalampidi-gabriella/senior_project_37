@@ -3,11 +3,14 @@
 
 <head>
   <meta charset="utf-8" />
+  <link rel='stylesheet' type='text/css' href='styles.css'>
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
 
   <script type="text/javascript" type="text/javascript">
+
+	var recentIDs = [];
 
 // ros status listener
     var ros = new ROSLIB.Ros({
@@ -20,13 +23,16 @@
 	    ros : ros,
 	    name : '/rosapi/topics',
 	    serviceType : 'rosapi/Topics'
+	    //serviceType : 'rosapi/TopicType'
 	    });
 
 	    var request = new ROSLIB.ServiceRequest();
+	    //var request = new ROSLIB.ServiceRequest({topic: '/darknet_ros/bounding_boxes'});
 
 	    topicsClient.callService(request, function(result) {
 	    console.log("Getting topics...");
 	    console.log(result.topics);
+	    console.log('Topic Types: ', result.types); //topic types 
 	    });
 	};
 
@@ -55,45 +61,32 @@
   });
 
 // identified items listener
+  function BoundingBoxes(header, image_header, bouding_boxes) {
+	this.header = header;
+	this.image_header = image_header;
+	this.bounding_boxes = bounding_boxes;
+  }
+  BoundingBoxes.prototype.displayInfo=function() {
+	return `${this.header} ${this.image_header} (${this.bounding_boxes})`;
+  }
 
   var items_listener = new ROSLIB.Topic({
     ros : ros,
-    name : '/yolo_model/detection_classes/names',
-    messageType : 'std_msgs/String'
+    name : '/darknet_ros/bounding_boxes',
+    messageType : 'darknet_ros_msgs/BoundingBoxes'
   });
 
   items_listener.subscribe(function(message) {
-    console.log('Received message on ' + listener.name + ': ' + message.data);
-    document.getElementById("items_msg").innerHTML = message.data;
-    listener.unsubscribe();
+	//bb = new BoundingBoxes(
+	//console.log('Received message on ' + items_listener.name + ': ' + message.data);
+	//console.log(typeof message.data);
+	console.log(message);
+	console.log(message.bounding_boxes[0].Class)
+	recentIDs.push(message.bounding_boxes[0].Class);
+
+	document.getElementById("items_msg").innerHTML = recentIDs + " ";
+	listener.unsubscribe();
   });
-
-// test to see if the UI can reach yolo
-  var num_objs_listener = new ROSLIB.Topic({
-    ros : ros,
-    //name : '/yolo_model/weight_file/name',
-    name : '/darknet_ros/found_object',
-    messageType : 'darknet_ros_msgs/ObjectCount'
-  });
-
-
-  num_objs_listener.subscribe(function(message) {
-    console.log('Received message on ' + listener.name + ': ' + message.data);
-    document.getElementById("items_msg").innerHTML = message.data;
-    listener.unsubscribe();
-  });
-
-// map listener
-/*
-  var map_listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/map_msg',
-    messageType : 'std_msgs/String'
-  });
-
-  items_listener.subscribe(function(m) {
-    document.getElementById("map_msg").innerHTML = m.data;
-  });*/
 
 
 // troubleshooting listener
@@ -132,6 +125,11 @@
   });
 
 
+// reset variables for new search
+	function startSearch() {
+	    recentIDs.length = 0;
+	};
+
   </script>
 </head>
 
@@ -140,9 +138,8 @@
   <button onclick="startSearch()">Search Room<span id="search_button"></span></button>
   <p>Ros connection status: <span id="status"></span></p>
   <p>Search status: <span id="search_status"></span></p>
-  <p>Last items identified: <span id="items_msg"></span></p>
+  <p>Last items identified: <span id="items_msg"> </span></p>
   </br>
-  <p>Random ros messages: <span id="msg"></span></p>
   <div id="zone_joystick" style="position: relative;"></div>
 
   <button onclick="getTopics()">Get Topics<span id="search_button"></span></button>
