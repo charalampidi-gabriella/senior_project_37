@@ -11,6 +11,8 @@
   <script type="text/javascript" type="text/javascript">
 
 	var recentIDs = [];
+	var searching = false;
+	var threshold = 0.10;
 
 // ros status listener
     var ros = new ROSLIB.Ros({
@@ -77,15 +79,19 @@
   });
 
   items_listener.subscribe(function(message) {
-	//bb = new BoundingBoxes(
-	//console.log('Received message on ' + items_listener.name + ': ' + message.data);
-	//console.log(typeof message.data);
-	console.log(message);
-	console.log(message.bounding_boxes[0].Class)
-	recentIDs.push(message.bounding_boxes[0].Class);
+	if (searching) {
+		//bb = new BoundingBoxes(
+		//console.log('Received message on ' + items_listener.name + ': ' + message.data);
+		//console.log(typeof message.data);
+		console.log(message);
+		console.log(message.bounding_boxes[0].Class)
+		if (message.bounding_boxes[0].probability > threshold) {  // the constant is the threshold percentage for detection confidence
+			recentIDs.push(" " + message.bounding_boxes[0].Class);
+		}
 
-	document.getElementById("items_msg").innerHTML = recentIDs + " ";
-	listener.unsubscribe();
+		document.getElementById("items_msg").innerHTML = recentIDs;
+		listener.unsubscribe();
+	}
   });
 
 
@@ -127,7 +133,25 @@
 
 // reset variables for new search
 	function startSearch() {
-	    recentIDs.length = 0;
+		if (!searching) {
+			//recentIDs.length = 0;
+			searching = true;
+		}
+	};
+
+
+
+// clear the list of identified items
+	function clearItems() {
+		recentIDs.length = 0;
+		document.getElementById("items_msg").innerHTML = recentIDs;
+	};
+
+// Immediately hault everything
+	function stop() {
+		// stop navigation
+		// stop receiving new object identifications
+		searching = false;
 	};
 
   </script>
@@ -136,14 +160,23 @@
 <body>
   <h1>RoomSense Robot</h1>
   <button onclick="startSearch()">Search Room<span id="search_button"></span></button>
+  <button onclick="clearItems()">Clear Items<span id="clear_items"></span></button>
+  </br>
+  <button style="background-color:#8e3858;" onclick="stop()">Stop<span id="stop_button"></span></button>
   <p>Ros connection status: <span id="status"></span></p>
   <p>Search status: <span id="search_status"></span></p>
   <p>Last items identified: <span id="items_msg"> </span></p>
   </br>
+<!-- 
   <div id="zone_joystick" style="position: relative;"></div>
 
+//-->
+
+<!--  sanity check to see that JS sees the same topics as ROS in the command line
   <button onclick="getTopics()">Get Topics<span id="search_button"></span></button>
   <p>Text Messages: <span id="txt_msg"></span></p>
+
+//-->
 </body>
 
 </html>
