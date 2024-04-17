@@ -51,6 +51,7 @@
       document.getElementById("status").innerHTML = "Closed";
     });
 
+
 // search status listener
   var search_listener = new ROSLIB.Topic({
     ros : ros,
@@ -62,16 +63,8 @@
     document.getElementById("search_status").innerHTML = m.data;
   });
 
-// identified items listener
-  function BoundingBoxes(header, image_header, bouding_boxes) {
-	this.header = header;
-	this.image_header = image_header;
-	this.bounding_boxes = bounding_boxes;
-  }
-  BoundingBoxes.prototype.displayInfo=function() {
-	return `${this.header} ${this.image_header} (${this.bounding_boxes})`;
-  }
 
+// identifications listener
   var items_listener = new ROSLIB.Topic({
     ros : ros,
     name : '/darknet_ros/bounding_boxes',
@@ -80,12 +73,9 @@
 
   items_listener.subscribe(function(message) {
 	if (searching) {
-		//bb = new BoundingBoxes(
-		//console.log('Received message on ' + items_listener.name + ': ' + message.data);
 		//console.log(typeof message.data);
-		console.log(message);
-		console.log(message.bounding_boxes[0].Class)
-		if (message.bounding_boxes[0].probability > threshold) {  // the constant is the threshold percentage for detection confidence
+		//console.log(message);
+		if (message.bounding_boxes[0].probability > threshold) {  // the threshold variable percentage for detection confidence
 			recentIDs.push(" " + message.bounding_boxes[0].Class);
 		}
 
@@ -93,6 +83,25 @@
 		listener.unsubscribe();
 	}
   });
+
+
+// image listener
+  var image_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/darknet_ros/detection_image',
+    messageType : 'sensor_msgs/Image'
+  });
+
+  items_listener.subscribe(function(message) {
+	if (searching) {
+		console.log(message);
+		
+		document.getElementById("testimg");
+		img.setAttribute('src', message);
+		listener.unsubscribe();
+	}
+  });
+
 
 
 // troubleshooting listener
@@ -104,7 +113,7 @@
 
 	listener.subscribe(function(message) {
 	  	console.log('Received message on ' + listener.name + ': ' + message.data);
-		document.getElementById("txt_msg").innerHTML = message.data;
+		img = document.getElementById("txt_msg").innerHTML = message.data;
 		listener.unsubscribe();
 	});
 
@@ -140,7 +149,6 @@
 	};
 
 
-
 // clear the list of identified items
 	function clearItems() {
 		recentIDs.length = 0;
@@ -167,6 +175,8 @@
   <p>Search status: <span id="search_status"></span></p>
   <p>Last items identified: <span id="items_msg"> </span></p>
   </br>
+  
+  <img src="" alt="", id="testimg">
 <!-- 
   <div id="zone_joystick" style="position: relative;"></div>
 
