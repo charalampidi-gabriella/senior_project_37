@@ -1,173 +1,219 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <link rel='stylesheet' type='text/css' href='styles.css'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roomsense</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link rel='stylesheet' type='text/css' href='styles.css'>
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
 
-  <script type="text/javascript" type="text/javascript">
 
-	var recentIDs = [];
-	var searching = false;
-	var threshold = 0.10;
-
-// ros status listener
-    var ros = new ROSLIB.Ros({
-      url: 'ws://localhost:9090'
-    });
-
-	// logs all available ros topics
-	function getTopics() {
-	    var topicsClient = new ROSLIB.Service({
-	    ros : ros,
-	    name : '/rosapi/topics',
-	    serviceType : 'rosapi/Topics'
-	    //serviceType : 'rosapi/TopicType'
-	    });
-
-	    var request = new ROSLIB.ServiceRequest();
-	    //var request = new ROSLIB.ServiceRequest({topic: '/darknet_ros/bounding_boxes'});
-
-	    topicsClient.callService(request, function(result) {
-	    console.log("Getting topics...");
-	    console.log(result.topics);
-	    console.log('Topic Types: ', result.types); //topic types 
-	    });
-	};
-
-    ros.on('error', function (error) {
-      document.getElementById("status").innerHTML = "Error";
-    });
-
-    ros.on('connection', function () {
-      document.getElementById("status").innerHTML = "Connected";
-      console.log('successfully connected to websocket server');
-    });
-
-    ros.on('close', function () {
-      document.getElementById("status").innerHTML = "Closed";
-    });
+	<script>
+	  function speakWelcomeMessage() {
+	      //  initialize speech synthesis
+	      function initializeSpeech() {
+		  var voices = window.speechSynthesis.getVoices();
+	  
+		  //  no voices are loaded, wait for them to load
+		  if (voices.length === 0) {
+		      window.setTimeout(() => {
+		          voices = window.speechSynthesis.getVoices();
+		          speak(voices);
+		      }, 100);
+		  } else {
+		      speak(voices);
+		  }
+	      }
+	  
+	      // speak the welcome message
+	      function speak(voices) {
+		  if (voices.length > 0) {
+		      var utterance = new SpeechSynthesisUtterance('Welcome to RoomSense. Please click the start button to initiate the process.');
+		      utterance.voice = voices.find(voice => voice.name === "Google US English") || voices[0];
+		      utterance.pitch = 1; // Normal pitch
+		      utterance.rate = 1; 
+		      window.speechSynthesis.speak(utterance);
+		  } else {
+		      window.setTimeout(initializeSpeech, 250);
+		  }
+	      }
+	  
+	      initializeSpeech();
+	  }
+	  
+	  //  ensure the page is fully loaded
+	  window.addEventListener('load', speakWelcomeMessage);
+	</script>
 
 
-// search status listener
-  var search_listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/search_msg',
-    messageType : 'std_msgs/String'
-  });
+	<script type="text/javascript" type="text/javascript">
 
-  search_listener.subscribe(function(m) {
-    document.getElementById("search_status").innerHTML = m.data;
-  });
+		var recentIDs = [];
+		var searching = false;
+		var threshold = 0.10;
 
+		// ros status listener
+		var ros = new ROSLIB.Ros({
+		url: 'ws://localhost:9090'
+		});
 
-// identifications listener
-  var items_listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/darknet_ros/bounding_boxes',
-    messageType : 'darknet_ros_msgs/BoundingBoxes'
-  });
+		// logs all available ros topics
+		function getTopics() {
+		    var topicsClient = new ROSLIB.Service({
+		    ros : ros,
+		    name : '/rosapi/topics',
+		    serviceType : 'rosapi/Topics'
+		    //serviceType : 'rosapi/TopicType'
+		    });
 
-  items_listener.subscribe(function(message) {
-	if (searching) {
-		//console.log(typeof message.data);
-		//console.log(message);
-		if (message.bounding_boxes[0].probability > threshold) {  // the threshold variable percentage for detection confidence
-			recentIDs.push(" " + message.bounding_boxes[0].Class);
-		}
+		    var request = new ROSLIB.ServiceRequest();
+		    //var request = new ROSLIB.ServiceRequest({topic: '/darknet_ros/bounding_boxes'});
 
-		document.getElementById("items_msg").innerHTML = recentIDs;
-		listener.unsubscribe();
-	}
-  });
+		    topicsClient.callService(request, function(result) {
+		    console.log("Getting topics...");
+		    console.log(result.topics);
+		    console.log('Topic Types: ', result.types); //topic types 
+		    });
+		};
 
+		ros.on('error', function (error) {
+		document.getElementById("status").innerHTML = "Error";
+		});
 
-// image listener
-  var image_listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/darknet_ros/detection_image',
-    messageType : 'sensor_msgs/Image'
-  });
+		ros.on('connection', function () {
+		document.getElementById("status").innerHTML = "Connected";
+		console.log('successfully connected to websocket server');
+		});
 
-  items_listener.subscribe(function(message) {
-	if (searching) {
-		console.log(message);
-		
-		document.getElementById("testimg");
-		img.setAttribute('src', message);
-		listener.unsubscribe();
-	}
-  });
+		ros.on('close', function () {
+		document.getElementById("status").innerHTML = "Closed";
+		});
 
 
-
-// troubleshooting listener
-	var listener = new ROSLIB.Topic({
+		// search status listener
+		var search_listener = new ROSLIB.Topic({
 		ros : ros,
-		name : '/listener',
+		name : '/search_msg',
 		messageType : 'std_msgs/String'
-	});
+		});
 
-	listener.subscribe(function(message) {
-	  	console.log('Received message on ' + listener.name + ': ' + message.data);
-		img = document.getElementById("txt_msg").innerHTML = message.data;
-		listener.unsubscribe();
-	});
+		search_listener.subscribe(function(m) {
+		document.getElementById("search_status").innerHTML = m.data;
+		});
 
 
+		// identifications listener
+		var items_listener = new ROSLIB.Topic({
+		ros : ros,
+		name : '/darknet_ros/bounding_boxes',
+		messageType : 'darknet_ros_msgs/BoundingBoxes'
+		});
 
-// Publishers
-// search button publisher
-  var search_cmd_listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/cmd_srch',
-    messageType : 'std_msgs/String'  // todo update if necessary
-  });
+		items_listener.subscribe(function(message) {
+		if (searching) {
+			//console.log(typeof message.data);
+			//console.log(message);
+			if (message.bounding_boxes[0].probability > threshold) {  // the threshold variable percentage for detection confidence
+				recentIDs.push(" " + message.bounding_boxes[0].Class);
+			}
 
-  start_search = function() {
-	var search = new ROSLIB.Message({
-		// todo add proper message to start search
-	});
-	search_cmd_listener.publish(search);
-  }
-
-  search_cmd_listener.subscribe(function(m) {
-    document.getElementById("search_button").innerHTML = m.data;
-    move(1, 0);
-  });
-
-
-// reset variables for new search
-	function startSearch() {
-		if (!searching) {
-			//recentIDs.length = 0;
-			searching = true;
+			document.getElementById("items_msg").innerHTML = recentIDs;
+			listener.unsubscribe();
 		}
-	};
+		});
 
 
-// clear the list of identified items
-	function clearItems() {
-		recentIDs.length = 0;
-		document.getElementById("items_msg").innerHTML = recentIDs;
-	};
+		// image listener
+		var image_listener = new ROSLIB.Topic({
+		ros : ros,
+		name : '/darknet_ros/detection_image',
+		messageType : 'sensor_msgs/Image'
+		});
 
-// Immediately hault everything
-	function stop() {
-		// stop navigation
-		// stop receiving new object identifications
-		searching = false;
-	};
+		items_listener.subscribe(function(message) {
+		if (searching) {
+			console.log(message);
+			
+			document.getElementById("testimg");
+			img.setAttribute('src', message);
+			listener.unsubscribe();
+		}
+		});
 
-  </script>
+
+
+		// troubleshooting listener
+		var listener = new ROSLIB.Topic({
+			ros : ros,
+			name : '/listener',
+			messageType : 'std_msgs/String'
+		});
+
+		listener.subscribe(function(message) {
+		  	console.log('Received message on ' + listener.name + ': ' + message.data);
+			img = document.getElementById("txt_msg").innerHTML = message.data;
+			listener.unsubscribe();
+		});
+
+
+
+		// Publishers
+		// search button publisher
+		var search_cmd_listener = new ROSLIB.Topic({
+		ros : ros,
+		name : '/cmd_srch',
+		messageType : 'std_msgs/String'  // todo update if necessary
+		});
+
+		start_search = function() {
+		var search = new ROSLIB.Message({
+			// todo add proper message to start search
+		});
+		search_cmd_listener.publish(search);
+		}
+
+		search_cmd_listener.subscribe(function(m) {
+		document.getElementById("search_button").innerHTML = m.data;
+		move(1, 0);
+		});
+
+
+		// reset variables for new search
+		function startSearch() {
+			if (!searching) {
+				//recentIDs.length = 0;
+				searching = true;
+			}
+		};
+
+
+		// clear the list of identified items
+		function clearItems() {
+			recentIDs.length = 0;
+			document.getElementById("items_msg").innerHTML = recentIDs;
+		};
+
+		// Immediately hault everything
+		function stop() {
+			// stop navigation
+			// stop receiving new object identifications
+			searching = false;
+		};
+
+	</script>
 </head>
 
 <body>
   <h1>RoomSense Robot</h1>
+  <p>Welcome to RoomSense. Please click the Search Room button to initiate the process.</p>
   <button onclick="startSearch()">Search Room<span id="search_button"></span></button>
+  </br>
   <button onclick="clearItems()">Clear Items<span id="clear_items"></span></button>
   </br>
   <button style="background-color:#8e3858;" onclick="stop()">Stop<span id="stop_button"></span></button>
@@ -188,5 +234,4 @@
 
 //-->
 </body>
-
 </html>
