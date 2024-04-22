@@ -56,7 +56,7 @@
 
 		var recentIDs = [];
 		var searching = false;
-		var threshold = 0.10;
+		var threshold = 0.60;
 
 		// ros status listener
 		var ros = new ROSLIB.Ros({
@@ -138,7 +138,8 @@
 
 		items_listener.subscribe(function(message) {
 		if (searching) {
-			console.log(message);
+			str = JSON.stringify(message);
+			console.log(str);
 			
 			document.getElementById("testimg");
 			img.setAttribute('src', message);
@@ -222,16 +223,6 @@
   <p>Last items identified: <span id="items_msg"> </span></p>
   </br>
   
-  <img src="" alt="", id="testimg">
-<!-- 
-  <div id="zone_joystick" style="position: relative;"></div>
-
-//-->
-
-<!--  sanity check to see that JS sees the same topics as ROS in the command line
-  <button onclick="getTopics()">Get Topics<span id="search_button"></span></button>
-  <p>Text Messages: <span id="txt_msg"></span></p>
-
-//-->
+  <img src="http://localhost:8080/stream?topic=/darknet_ros/detection_image" alt="Live Robot Camera Feed">
 </body>
 </html>
