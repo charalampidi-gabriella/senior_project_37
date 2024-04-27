@@ -83,70 +83,79 @@
 		};
 
 		ros.on('error', function (error) {
-		document.getElementById("status").innerHTML = "Error";
+			document.getElementById("status").innerHTML = "Error";
 		});
 
 		ros.on('connection', function () {
-		document.getElementById("status").innerHTML = "Connected";
-		console.log('successfully connected to websocket server');
+			document.getElementById("status").innerHTML = "Connected";
+			console.log('successfully connected to websocket server');
 		});
 
 		ros.on('close', function () {
-		document.getElementById("status").innerHTML = "Closed";
+			document.getElementById("status").innerHTML = "Closed";
 		});
 
 
 		// search status listener
 		var search_listener = new ROSLIB.Topic({
-		ros : ros,
-		name : '/search_msg',
-		messageType : 'std_msgs/String'
+			ros : ros,
+			name : '/search_msg',
+			messageType : 'std_msgs/String'
 		});
 
 		search_listener.subscribe(function(m) {
-		document.getElementById("search_status").innerHTML = m.data;
+			document.getElementById("search_status").innerHTML = m.data;
 		});
 
 
 		// identifications listener
 		var items_listener = new ROSLIB.Topic({
-		ros : ros,
-		name : '/darknet_ros/bounding_boxes',
-		messageType : 'darknet_ros_msgs/BoundingBoxes'
+			ros : ros,
+			name : '/darknet_ros/bounding_boxes',
+			messageType : 'darknet_ros_msgs/BoundingBoxes'
 		});
 
 		items_listener.subscribe(function(message) {
-		if (searching) {
-			//console.log(typeof message.data);
-			//console.log(message);
-			if (message.bounding_boxes[0].probability > threshold) {  // the threshold variable percentage for detection confidence
-				recentIDs.push(" " + message.bounding_boxes[0].Class);
+			if (searching) {
+				//console.log(typeof message.data);
+				//console.log(message);
+				if (message.bounding_boxes[0].probability > threshold) {  // the threshold variable percentage for detection confidence
+					obj_class = message.bounding_boxes[0].Class;
+					timestamp = message.header.stamp.secs;  // time image was taken in seconds; note I might change secs to nsecs for nanoseconds I think
+
+					// if we have 0 detections already, save the current detection without doing extra logic to prevent duplicates
+					if (recentIDs.length == 0) {
+						recentIDs.push([" " + obj_class, timestamp]);
+						console.log("pushed back", recentIDs[recentIDs.length-1], "no timediff, because this is the first detection logged");
+					} else {
+
+						// check if the time the last object saved was recent or not in order to prevent duplicates
+						timediff = 0;
+						if (recentIDs.length <= 5) {
+							maxlen = recentIDs.length;
+						} else {
+							maxlen = 5;
+						}
+						//console.log("maxlen:", maxlen);
+
+						for (i=1; i<=maxlen; i++) {  // maxlen will never be 0 due to an if statement above
+							//console.log(recentIDs.length-i, ",", i, ":  ", recentIDs[recentIDs.length-i]);
+							lastIDtime = recentIDs[recentIDs.length-i][1];
+							timediff = timestamp-lastIDtime;  // time between current image and last image above the threshold
+							//console.log("timediff:", timediff);
+
+							if (timediff > 3) { // save new detection if it's not too new or if a lot of time has passed since last detection of same class
+								recentIDs.push([" " + obj_class, timestamp]);
+								console.log("pushed back", recentIDs[recentIDs.length-1], "with timediff=", timediff);
+							}
+						}
+					}
+				}
+
+				document.getElementById("items_msg").innerHTML = recentIDs;
+				listener.unsubscribe();
 			}
-
-			document.getElementById("items_msg").innerHTML = recentIDs;
-			listener.unsubscribe();
-		}
 		});
-
-
-		// image listener
-		var image_listener = new ROSLIB.Topic({
-		ros : ros,
-		name : '/darknet_ros/detection_image',
-		messageType : 'sensor_msgs/Image'
-		});
-
-		items_listener.subscribe(function(message) {
-		if (searching) {
-			str = JSON.stringify(message);
-			console.log(str);
-			
-			document.getElementById("testimg");
-			img.setAttribute('src', message);
-			listener.unsubscribe();
-		}
-		});
-
 
 
 		// troubleshooting listener
@@ -166,22 +175,22 @@
 
 		// Publishers
 		// search button publisher
-		var search_cmd_listener = new ROSLIB.Topic({
-		ros : ros,
-		name : '/cmd_srch',
-		messageType : 'std_msgs/String'  // todo update if necessary
+		var search_cmd_publisher = new ROSLIB.Topic({
+			ros : ros,
+			name : 'move_base_simple/goal',
+			messageType : 'geometry_msgs/PoseStamped'
 		});
 
 		start_search = function() {
-		var search = new ROSLIB.Message({
-			// todo add proper message to start search
-		});
-		search_cmd_listener.publish(search);
+			var search = new ROSLIB.Message({
+				// todo add proper message to start search
+			});
+			search_cmd_publisher.publish(search);
 		}
 
-		search_cmd_listener.subscribe(function(m) {
-		document.getElementById("search_button").innerHTML = m.data;
-		move(1, 0);
+		search_cmd_publisher.subscribe(function(m) {
+			document.getElementById("search_button").innerHTML = m.data;
+			move(1, 0);
 		});
 
 
@@ -190,6 +199,7 @@
 			if (!searching) {
 				//recentIDs.length = 0;
 				searching = true;
+				console.log("starting search");
 			}
 		};
 
@@ -205,6 +215,7 @@
 			// stop navigation
 			// stop receiving new object identifications
 			searching = false;
+			console.log("stoppping search");
 		};
 
 	</script>
