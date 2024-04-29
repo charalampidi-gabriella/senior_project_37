@@ -4,7 +4,7 @@ title3="tab 3"
 title4="tab 4"
 
 cmd1="sudo systemctl stop start_app_node.service;"
-cmd2="sleep 10; roslaunch jetauto_navigation navigation.launch map:=auto_map_03"
+cmd2="sleep 3; roslaunch jetauto_navigation navigation.launch map:=auto_map_03"
 cmd3="sleep 15; roslaunch jetauto_navigation rviz_navigation.launch"
 cmd4="sleep 15; roslaunch jetauto_navigation publish_point.launch"
 
