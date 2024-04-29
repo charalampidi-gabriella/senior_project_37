@@ -8,10 +8,26 @@
 - Instructors: Sara Davis, Devrin Lee, Vinh Le
 - Team Advisor: Christos Papachristos, Assistant Professor
 
-## Demo Videos
+## Fall Semester Demo Videos
 
 - **WASD Navigation Demo:** [Watch Video](https://youtu.be/aKd7RaaQccc)
 - **Autonomous Navigation Demo:** [Watch Video](https://youtu.be/T0JaqantIKE)
+
+## T37_ws
+
+### Prerequisites:
+
+- Must be running Ubuntu 20.04
+- Download ROS1 Noetic software ([Installation Guide](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment))
+- Have the proper workspace built and dependencies included
+
+### Fall Semester Final Project
+
+- Start the launch file on the Hiwonder Jetauto Pro ROS Robot
+
+## Spring Semester Demo Videos
+
+- **Final Video Demo:** [Watch Video](https://www.youtube.com/watch?v=4dVwciwLvZg)
 
 ## catkin_ws
 
@@ -19,9 +35,10 @@
 
 - Must be running Ubuntu 20.04
 - Download ROS1 Noetic software ([Installation Guide](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment))
-- Download Gazebo software ([Installation Guide](https://classic.gazebosim.org/tutorials?cat=guided_b&tut=guided_b1))
+- Have Gazebo installed and initialized
 
-### TurtleBot3 Prototype
+
+### Spring Semester TurtleBot3 Gazebo Prototype
 
 
 1. **Terminal 1: Set up the Environment**
