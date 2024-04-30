@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/bin/bash /home/jetauto/Desktop/launch_project.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_HK]=launch project
+Name=display
+Comment[en_HK]=launch the senior project ui and object recognition
+Comment=set screen fb
