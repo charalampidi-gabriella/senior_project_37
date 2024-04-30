@@ -201,6 +201,91 @@ function speakWelcomeMessage() {
 				console.log("starting search");
 				items_listener.subscribe(handle_detections);
 			}
+
+			// publish 2d_pose_estimate
+			var initial_pose = new ROSLIB.Topic({
+				ros: ros,
+				name : '/jetauto_1/initialpose',
+				messageType : 'geometry_msgs/PoseWithCovarianceStamped'
+			});
+
+			the_2d_pose_estimate = new ROSLIB.Message({  // note js variables can't start with numbers
+				header : {  // todo probably dont need this header, since I think roslibjs will handle it
+					seq : 0,
+					stamp : {
+						secs : 234432432,
+						nsecs : 23434234
+					},
+					frame_id : "jetauto_1/map"
+				},
+				pose : {
+					pose : {
+						position : {
+							x : 0.39485,
+							y : 0.435,
+							z : 345345
+						},
+						orientation : {
+							x : 0.39485,
+							y : 0.435,
+							z : 345345,
+							orientation : 0.345435
+						}
+					}
+				},
+				covariance : [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
+			});
+
+			initial_pose.publish(the_2d_pose_estimate);
+
+
+			// publish all the points as well
+			var initial_pose = new ROSLIB.Topic({
+				ros: ros,
+				name : '/jetauto_1/clicked_point',
+				messageType : 'geometry_msgs/PointStamped'
+			});
+
+			point0 = new ROSLIB.Message({
+				point : {
+					x : 0.39485,
+					y : 0.435,
+					z : 345345
+				}
+			});
+
+			point1 = new ROSLIB.Message({
+				point : {
+					x : 0.39485,
+					y : 0.435,
+					z : 345345
+				}
+			});
+
+			point2 = new ROSLIB.Message({
+				point : {
+					x : 0.39485,
+					y : 0.435,
+					z : 345345
+				}
+			});
+
+			point3 = new ROSLIB.Message({
+				point : {
+					x : 0.39485,
+					y : 0.435,
+					z : 345345
+				}
+			});
+
+			initial_pose.publish(point0);
+			initial_pose.publish(point1);
+			initial_pose.publish(point2);
+			initial_pose.publish(point3);
+
+			// send the explore thingamado somehow
+
+
 		};
 
 
