@@ -3,237 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roomsense</title>
-<link rel="stylesheet" href="styles.css">
+<title>RoomSense</title>  
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-<link rel='stylesheet' type='text/css' href='styles.css'>
+<link rel="stylesheet" href="styles.css">
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+<script type="text/javascript" src="script.js">  </script>
 
-
-	<script>
-	  function speakWelcomeMessage() {
-	      //  initialize speech synthesis
-	      function initializeSpeech() {
-		  var voices = window.speechSynthesis.getVoices();
-	  
-		  //  no voices are loaded, wait for them to load
-		  if (voices.length === 0) {
-		      window.setTimeout(() => {
-		          voices = window.speechSynthesis.getVoices();
-		          speak(voices);
-		      }, 100);
-		  } else {
-		      speak(voices);
-		  }
-	      }
-	  
-	      // speak the welcome message
-	      function speak(voices) {
-		  if (voices.length > 0) {
-		      var utterance = new SpeechSynthesisUtterance('Welcome to RoomSense. Please click the start button to initiate the process.');
-		      utterance.voice = voices.find(voice => voice.name === "Google US English") || voices[0];
-		      utterance.pitch = 1; // Normal pitch
-		      utterance.rate = 1; 
-		      window.speechSynthesis.speak(utterance);
-		  } else {
-		      window.setTimeout(initializeSpeech, 250);
-		  }
-	      }
-	  
-	      initializeSpeech();
-	  }
-	  
-	  //  ensure the page is fully loaded
-	  window.addEventListener('load', speakWelcomeMessage);
-	</script>
-
-
-	<script type="text/javascript" type="text/javascript">
-
-		var recentIDs = [];
-		var searching = false;
-		var threshold = 0.60;
-
-		// ros status listener
-		var ros = new ROSLIB.Ros({
-		url: 'ws://localhost:9090'
-		});
-
-		// logs all available ros topics
-		function getTopics() {
-		    var topicsClient = new ROSLIB.Service({
-		    ros : ros,
-		    name : '/rosapi/topics',
-		    serviceType : 'rosapi/Topics'
-		    //serviceType : 'rosapi/TopicType'
-		    });
-
-		    var request = new ROSLIB.ServiceRequest();
-		    //var request = new ROSLIB.ServiceRequest({topic: '/darknet_ros/bounding_boxes'});
-
-		    topicsClient.callService(request, function(result) {
-		    console.log("Getting topics...");
-		    console.log(result.topics);
-		    console.log('Topic Types: ', result.types); //topic types 
-		    });
-		};
-
-		ros.on('error', function (error) {
-			document.getElementById("status").innerHTML = "Error";
-		});
-
-		ros.on('connection', function () {
-			document.getElementById("status").innerHTML = "Connected";
-			console.log('successfully connected to websocket server');
-		});
-
-		ros.on('close', function () {
-			document.getElementById("status").innerHTML = "Closed";
-		});
-
-
-		// search status listener
-		var search_listener = new ROSLIB.Topic({
-			ros : ros,
-			name : '/search_msg',
-			messageType : 'std_msgs/String'
-		});
-
-		search_listener.subscribe(function(m) {
-			document.getElementById("search_status").innerHTML = m.data;
-		});
-
-
-		// identifications listener
-		var items_listener = new ROSLIB.Topic({
-			ros : ros,
-			name : '/darknet_ros/bounding_boxes',
-			messageType : 'darknet_ros_msgs/BoundingBoxes'
-		});
-
-		items_listener.subscribe(function(message) {
-			if (searching) {
-				//console.log(typeof message.data);
-				//console.log(message);
-				if (message.bounding_boxes[0].probability > threshold) {  // the threshold variable percentage for detection confidence
-					obj_class = message.bounding_boxes[0].Class;
-					timestamp = message.header.stamp.secs;  // time image was taken in seconds; note I might change secs to nsecs for nanoseconds I think
-
-					// if we have 0 detections already, save the current detection without doing extra logic to prevent duplicates
-					if (recentIDs.length == 0) {
-						recentIDs.push([" " + obj_class, timestamp]);
-						console.log("pushed back", recentIDs[recentIDs.length-1], "no timediff, because this is the first detection logged");
-					} else {
-
-						// check if the time the last object saved was recent or not in order to prevent duplicates
-						timediff = 0;
-						if (recentIDs.length <= 5) {
-							maxlen = recentIDs.length;
-						} else {
-							maxlen = 5;
-						}
-						//console.log("maxlen:", maxlen);
-
-						for (i=1; i<=maxlen; i++) {  // maxlen will never be 0 due to an if statement above
-							//console.log(recentIDs.length-i, ",", i, ":  ", recentIDs[recentIDs.length-i]);
-							lastIDtime = recentIDs[recentIDs.length-i][1];
-							timediff = timestamp-lastIDtime;  // time between current image and last image above the threshold
-							//console.log("timediff:", timediff);
-
-							if (timediff > 3) { // save new detection if it's not too new or if a lot of time has passed since last detection of same class
-								recentIDs.push([" " + obj_class, timestamp]);
-								console.log("pushed back", recentIDs[recentIDs.length-1], "with timediff=", timediff);
-							}
-						}
-					}
-				}
-
-				document.getElementById("items_msg").innerHTML = recentIDs;
-				listener.unsubscribe();
-			}
-		});
-
-
-		// troubleshooting listener
-		var listener = new ROSLIB.Topic({
-			ros : ros,
-			name : '/listener',
-			messageType : 'std_msgs/String'
-		});
-
-		listener.subscribe(function(message) {
-		  	console.log('Received message on ' + listener.name + ': ' + message.data);
-			img = document.getElementById("txt_msg").innerHTML = message.data;
-			listener.unsubscribe();
-		});
-
-
-
-		// Publishers
-		// search button publisher
-		var search_cmd_publisher = new ROSLIB.Topic({
-			ros : ros,
-			name : 'move_base_simple/goal',
-			messageType : 'geometry_msgs/PoseStamped'
-		});
-
-		start_search = function() {
-			var search = new ROSLIB.Message({
-				// todo add proper message to start search
-			});
-			search_cmd_publisher.publish(search);
-		}
-
-		search_cmd_publisher.subscribe(function(m) {
-			document.getElementById("search_button").innerHTML = m.data;
-			move(1, 0);
-		});
-
-
-		// reset variables for new search
-		function startSearch() {
-			if (!searching) {
-				//recentIDs.length = 0;
-				searching = true;
-				console.log("starting search");
-			}
-		};
-
-
-		// clear the list of identified items
-		function clearItems() {
-			recentIDs.length = 0;
-			document.getElementById("items_msg").innerHTML = recentIDs;
-		};
-
-		// Immediately hault everything
-		function stop() {
-			// stop navigation
-			// stop receiving new object identifications
-			searching = false;
-			console.log("stoppping search");
-		};
-
-	</script>
 </head>
 
 <body>
+<div class="left">
   <h1>RoomSense Robot</h1>
-  <p>Welcome to RoomSense. Please click the Search Room button to initiate the process.</p>
+  <p>Welcome to RoomSense. </p>
+  <p>Please click the Add New Area button if you want to map a new room.</p>
+  <p>Please click the Search Room button to explore a room.</p>
+  <button onclick=>Add New Area<span id="search_button"></span></button>
   <button onclick="startSearch()">Search Room<span id="search_button"></span></button>
-  </br>
-  <button onclick="clearItems()">Clear Items<span id="clear_items"></span></button>
-  </br>
-  <button style="background-color:#8e3858;" onclick="stop()">Stop<span id="stop_button"></span></button>
-  <p>Ros connection status: <span id="status"></span></p>
+  <button onclick="stop()">Stop Search<span id="stop_button"></span></button>  
+<button onclick="clearItems()">Clear Items<span id="clear_items"></span></button>
+
+</br>
+</br>
+</br>
+  <p>ROS connection status: <span id="status"></span></p>
   <p>Search status: <span id="search_status"></span></p>
   <p>Last items identified: <span id="items_msg"> </span></p>
-  </br>
-  
-  <img src="http://localhost:8080/stream?topic=/darknet_ros/detection_image" alt="Live Robot Camera Feed">
+</div>
+
+<div class="right">
+  <h1 class="hoverable" >Live feed</h1>
+    <img src="http://localhost:8080/stream?topic=/darknet_ros/detection_image" alt="Live Robot Camera Feed" style="max-width: 80%;">
+
+ 
 </body>
 </html>
