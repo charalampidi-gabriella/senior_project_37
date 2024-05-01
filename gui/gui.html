@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoomSense</title>  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="styles.css">
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+<script type="text/javascript" src="script.js">  </script>
+
+</head>
+
+<body>
+<div class="left">
+  <h1>RoomSense Robot</h1>
+  <p>Welcome to RoomSense. </p>
+  <p>Please click the Add New Area button if you want to map a new room.</p>
+  <p>Please click the Search Room button to explore a room.</p>
+  <button onclick=>Add New Area<span id="search_button"></span></button>
+  <button onclick="startSearch()">Search Room<span id="search_button"></span></button>
+  <button onclick="stop()">Stop Search<span id="stop_button"></span></button>  
+<button onclick="clearItems()">Clear Items<span id="clear_items"></span></button>
+
+</br>
+</br>
+</br>
+  <p>ROS connection status: <span id="status"></span></p>
+  <p>Search status: <span id="search_status"></span></p>
+  <p>Last items identified: <span id="items_msg"> </span></p>
+</div>
+
+<div class="right">
+  <h1 class="hoverable" >Live feed</h1>
+    <img src="http://localhost:8080/stream?topic=/darknet_ros/detection_image" alt="Live Robot Camera Feed" style="max-width: 80%;">
+
+ 
+</body>
+</html>
