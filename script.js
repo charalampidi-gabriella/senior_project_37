@@ -71,16 +71,16 @@ function speakWelcomeMessage() {
 		};
 
 		ros.on('error', function (error) {
-			document.getElementById("status").innerHTML = "Error";
+			// document.getElementById("status").innerHTML = "Error";
 		});
 
 		ros.on('connection', function () {
-			document.getElementById("status").innerHTML = "Connected";
+			// document.getElementById("status").innerHTML = "Connected";
 			console.log('successfully connected to websocket server');
 		});
 
 		ros.on('close', function () {
-			document.getElementById("status").innerHTML = "Closed";
+			// document.getElementById("status").innerHTML = "Closed";
 		});
 
 
@@ -210,37 +210,30 @@ function speakWelcomeMessage() {
 			});
 
 			the_2d_pose_estimate = new ROSLIB.Message({  // note js variables can't start with numbers
-				header : {  // todo probably dont need this header, since I think roslibjs will handle it
-					seq : 0,
-					stamp : {
-						secs : 234432432,
-						nsecs : 23434234
-					},
-					frame_id : "jetauto_1/map"
-				},
 				pose : {
 					pose : {
 						position : {
-							x : 0.39485,
-							y : 0.435,
-							z : 345345
+							x : 1.49036717415,
+							y : -0.135875985026,
+							z : 0.0
 						},
 						orientation : {
-							x : 0.39485,
-							y : 0.435,
-							z : 345345,
-							orientation : 0.345435
+							x : 0.0,
+							y : 0.0,
+							z : -0.909089241609,
+							w : 0.416601429175
 						}
-					}
-				},
+					},
 				covariance : [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
+				}
 			});
 
+			console.log(the_2d_pose_estimate);
 			initial_pose.publish(the_2d_pose_estimate);
 
 
 			// publish all the points as well
-			var initial_pose = new ROSLIB.Topic({
+			var navigation_points_topic = new ROSLIB.Topic({
 				ros: ros,
 				name : '/jetauto_1/clicked_point',
 				messageType : 'geometry_msgs/PointStamped'
@@ -248,44 +241,50 @@ function speakWelcomeMessage() {
 
 			point0 = new ROSLIB.Message({
 				point : {
-					x : 0.39485,
-					y : 0.435,
-					z : 345345
+					x : -1.32744562626,
+					y : -1.08546102047,
+					z : 0.0
 				}
 			});
 
 			point1 = new ROSLIB.Message({
 				point : {
-					x : 0.39485,
-					y : 0.435,
-					z : 345345
+					x : -0.826085746288,
+					y : 0.845190703869,
+					z : 0.0
 				}
 			});
 
 			point2 = new ROSLIB.Message({
 				point : {
-					x : 0.39485,
-					y : 0.435,
-					z : 345345
+					x : -0.0930778831244,
+					y : 1.35695457458,
+					z : 0.0
 				}
 			});
 
 			point3 = new ROSLIB.Message({
 				point : {
-					x : 0.39485,
-					y : 0.435,
-					z : 345345
+					x : 0.628813326359,
+					y : -0.966171085835,
+					z : 0.0
 				}
 			});
+/*
+			navigation_points_topic.publish(point0);
+			navigation_points_topic.publish(point1);
+			navigation_points_topic.publish(point2);
+			navigation_points_topic.publish(point3); */
 
-			initial_pose.publish(point0);
-			initial_pose.publish(point1);
-			initial_pose.publish(point2);
-			initial_pose.publish(point3);
+			// send the a message to start exploring the room
+			var explore_topic = new ROSLIB.Topic({
+				ros: ros,
+				name : '/explore',
+				messageType : 'std_msgs/String'
+			});
 
-			// send the explore thingamado somehow
-
-
+			exp_bool = new ROSLIB.Message({data : "true"});
+			explore_topic.publish(exp_bool);
 		};
 
 
@@ -320,6 +319,16 @@ function speakWelcomeMessage() {
 				}
 			}
 			
+
+			var explore_topic = new ROSLIB.Topic({
+				ros: ros,
+				name : '/explore',
+				messageType : 'std_msgs/String'
+			});
+
+			exp_bool = new ROSLIB.Message({data : "false"});
+			explore_topic.publish(exp_bool);
+
 			document.getElementById("items_msg").innerHTML = parseIDs();
 			console.log("search stopped");
 		};
