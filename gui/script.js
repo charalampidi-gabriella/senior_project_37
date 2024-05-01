@@ -36,6 +36,7 @@ function speakWelcomeMessage() {
 		var recentIDs = [];
 		var searching = false;
 		var threshold = 0.10;
+		counter = 0;
 
 		function parseIDs() {
 			cleanIDs = [];
@@ -227,9 +228,12 @@ function speakWelcomeMessage() {
 				covariance : [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]
 				}
 			});
-
+			console.log(counter);
 			console.log(the_2d_pose_estimate);
-			initial_pose.publish(the_2d_pose_estimate);
+			if (counter == 0) {
+				initial_pose.publish(the_2d_pose_estimate);	
+				console.log("publishing initial pose");
+			}
 
 
 			// publish all the points as well
@@ -270,12 +274,20 @@ function speakWelcomeMessage() {
 					z : 0.0
 				}
 			});
-/*
-			navigation_points_topic.publish(point0);
-			navigation_points_topic.publish(point1);
-			navigation_points_topic.publish(point2);
-			navigation_points_topic.publish(point3); */
 
+			if (counter == 1) {
+				navigation_points_topic.publish(point0);
+			}
+			if (counter== 2) {
+			navigation_points_topic.publish(point1);
+}
+			if (counter == 3) {
+			navigation_points_topic.publish(point2);
+}
+			if (counter == 4) {
+			navigation_points_topic.publish(point3); 
+}
+			counter = counter + 1;
 			// send the a message to start exploring the room
 			var explore_topic = new ROSLIB.Topic({
 				ros: ros,
